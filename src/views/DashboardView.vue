@@ -4,14 +4,19 @@
         <ul class="flex justify-center items-center gap-[15px]">
             <li v-if="name">{{ name }}</li>
             <li><router-link to="/logout">Logout</router-link></li>
+            <li><router-link to="/profile">profile</router-link></li>
         </ul>
     </nav>
     <div class="justify-center items-center flex mt-5 w-[100%]">
         <div>
             <!-- ini data player -->
             <h1 class="text-2xl">Data Players</h1>
+            <form class="flex gap-[10px]">
+                <input type="search" name="searchName" placeholder="cari nama player" class="border border-black px-5">
+                <button class="bg-blue-300 px-2 rounded-md">cari</button>
+            </form>
             <table
-                class="table-auto p-5 text-center w-[100%] "
+                class="table-auto p-5 text-center w-[100%]"
                 v-if="player && player.length > 0"
             >
                 <thead>
@@ -31,14 +36,18 @@
                         <td class="px-5">{{ item.nama }}</td>
                         <td class="px-5">{{ item.nomer_punggung }}</td>
                         <td class="px-5">{{ item.created_by.username }}</td>
-                        <td>
+                        <td class="flex gap-[10px]">
                             <button
                                 class="bg-red-500 text-white px-1 rounded-md"
                                 @click="deletePlayer(item.id)"
                             >
                                 Delete
                             </button>
-                            <button >Edit</button>
+                            <button
+                                class="bg-green-500 text-white px-1 rounded-md"
+                            >
+                                Edit
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -72,11 +81,10 @@
             </div>
         </div>
     </div>
-</template>
 
+</template>
 <script>
 import axios from "axios";
-
 export default {
     data() {
         return {
@@ -120,18 +128,24 @@ export default {
         // delete player method
         async deletePlayer(playerId) {
             try {
-                await axios.delete(`http://localhost:8000/api/player/${playerId}`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                });
+                await axios.delete(
+                    `http://localhost:8000/api/player/${playerId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
                 window.location.reload();
             } catch (error) {
                 console.error(error);
             }
         },
+        async finPlayer(playerName){
+
+        }
     },
 };
 </script>

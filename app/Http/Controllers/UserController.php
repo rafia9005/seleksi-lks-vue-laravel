@@ -23,4 +23,12 @@ class UserController extends Controller
 
         return new UserResource($user);
     }
+    public function edit(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    }
 }
