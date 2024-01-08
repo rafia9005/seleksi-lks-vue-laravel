@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/auth/Loginview.vue'
 import ProfileView from '../views/auth/ProfileView.vue'
@@ -20,8 +21,8 @@ const router = createRouter({
     },
     {
       path: '/profile',
-      name: 'Halaman Login',
-      component: LoginView
+      name: `Halaman Profile`,
+      component: ProfileView
     },
     {
       path: '/logout',
@@ -40,5 +41,6 @@ router.beforeEach((to, from, next) => {
   document.title = to.name;
   next();
 });
+
 
 export default router
